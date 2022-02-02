@@ -1,0 +1,308 @@
+#:import C kivy.utils.get_color_from_hex
+
+WindowManager:
+    MainScreen:
+
+<MainScreen@MDScreen>:
+    name: "main"
+
+    MDBoxLayout:
+        md_bg_color: C('000000')
+        orientation: 'vertical'
+
+        MDGridLayout:
+            size_hint_y: None
+            id: grid
+            cols: 4
+
+            #Row 1
+            Widget:
+                id: test1
+                size: dp(155), dp(180)
+                size_hint: None, None
+
+            Widget:
+                id: test2
+                size: dp(155), dp(180)
+                size_hint: None, None
+
+            Widget:
+                id: test3
+                size: dp(155), dp(180)
+                size_hint: None, None
+
+            Widget:
+                id: test4
+                size_hint: None, None
+                size: dp(155), dp(180)
+
+            #Row 2
+            Widget:
+                id: test5
+                size: dp(155), dp(180)
+                size_hint: None, None
+
+            Widget:
+                id: test6
+                size: dp(155), dp(180)
+                size_hint: None, None
+
+            Widget:
+                id: test7
+                size: dp(155), dp(180)
+                size_hint: None, None
+
+            Widget:
+                id: test8
+                size_hint: None, None
+                size: dp(155), dp(180)
+
+    ScrollView:
+        FloatLayout:
+            size_hint: None, None
+
+            # Row 1
+            FloatLayout:
+                Image:
+                    pos: test1.x, test1.y
+                    size_hint: None, None
+                    size: dp(155), dp(180)
+                    source: 'image/Hexagon.png'
+            FloatLayout:
+                Image:
+                    pos: test2.x, test2.y
+                    size_hint: None, None
+                    size: dp(155), dp(180)
+                    source: 'image/Hexagon.png'
+
+            FloatLayout:
+                Image:
+                    pos: test3.x, test3.y
+                    size_hint: None, None
+                    size: dp(155), dp(180)
+                    source: 'image/Hexagon.png'
+
+            FloatLayout:
+                Image:
+                    pos: test4.x, test4.y
+                    size_hint: None, None
+                    size: dp(155), dp(180)
+                    source: 'image/Hexagon.png'
+
+            # Row 2
+            FloatLayout:
+                Image:
+                    pos: test5.x + dp(77.5), test5.y + dp(45)
+                    size_hint: None, None
+                    size: dp(155), dp(180)
+                    source: 'image/Hexagon.png'
+            FloatLayout:
+                Image:
+                    pos: test6.x + dp(77.5), test6.y + dp(45)
+                    size_hint: None, None
+                    size: dp(155), dp(180)
+                    source: 'image/Hexagon.png'
+
+            FloatLayout:
+                Image:
+                    pos: test7.x + dp(77.5), test7.y + dp(45)
+                    size_hint: None, None
+                    size: dp(155), dp(180)
+                    source: 'image/Hexagon.png'
+
+            FloatLayout:
+                Image:
+                    pos: test8.x + dp(77.5), test8.y + dp(45)
+                    size_hint: None, None
+                    size: dp(155), dp(180)
+                    source: 'image/Hexagon.png'
+
+
+
+
+
+#        FloatLayout:
+#            Image:
+#                pos: test4.x + dp(75), test4.y + dp(50)
+#                size_hint: None, None
+#                size: dp(150), dp(180)
+#                source: 'image/Hexagon.png'
+
+
+            #Row 3
+#            Image:
+#                size: dp(85), dp(80)
+#                size_hint: None, None
+#                source: 'image/Hexagon.png'
+#                opacity: 0
+#
+#            Image:
+#                id: test4
+#                size: dp(85), dp(80)
+#                size_hint: None, None
+#                source: 'image/Hexagon.png'
+#                opacity: 0
+#
+#            Image:
+#                id: test5
+#                size: dp(85), dp(80)
+#                size_hint: None, None
+#                source: 'image/Hexagon.png'
+#                opacity: 0
+#
+#            Image:
+#                id: test6
+#                size_hint: None, None
+#                size: dp(85), dp(80)
+#                source: 'image/Hexagon.png'
+#                opacity: 0
+#
+#            #Row 4
+#            Image:
+#                id: test7
+#                size: dp(85), dp(100)
+#                size_hint: None, None
+#                source: 'image/Hexagon.png'
+#                opacity: 0
+#
+#            Image:
+#                id: test8
+#                size: dp(85), dp(100)
+#                size_hint: None, None
+#                source: 'image/Hexagon.png'
+#                opacity: 0
+#
+#            Image:
+#                id: test9
+#                size: dp(85), dp(100)
+#                size_hint: None, None
+#                source: 'image/Hexagon.png'
+#                opacity: 0
+#
+#            Image:
+#                size_hint: None, None
+#                size: dp(85), dp(100)
+#                source: 'image/Hexagon.png'
+#                opacity: 0
+#
+#
+#
+#        FloatLayout:
+#            Image:
+#                pos: test.pos
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+#                size: dp(200), dp(100)
+#        FloatLayout:
+#            Image:
+#                pos: test2.pos
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+#                size: dp(200), dp(100)
+#
+#        FloatLayout:
+#            Image:
+#                pos: test3.pos
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+#                size: dp(200), dp(100)
+#
+#        FloatLayout:
+#            Image:
+#                pos: test4.pos
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+#                size: dp(100), dp(100)
+#        FloatLayout:
+#            Image:
+#                pos: test5.pos
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+#                size: dp(100), dp(100)
+#
+#        FloatLayout:
+#            Image:
+#                pos: test6.pos
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+#                size: dp(100), dp(100)
+#
+#        FloatLayout:
+#            Image:
+##                pos: test7.pos
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+#                x: test8.x + 85
+#                y: test8.y
+#        FloatLayout:
+#            Image:
+#                x: test8.x + 85
+#                y: test8.y
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+##                size: dp(200), dp(100)
+#        FloatLayout:
+#            Image:
+#                pos: test9.pos
+#                source: 'image/Hexagon.png'
+#                size_hint: None, None
+#                size: dp(200), dp(100)
+#                canvas.before:
+#                    Color:
+#                        rgba: 51/255, 255/255, 51/255, 0.3
+#                    Line:
+#                        width: dp(0.3)
+#                        rectangle: self.x, self.y, self.width, self.height
+#                    Color:
+#                        rgba: 51/255, 255/255, 51/255, 0.06
+#                    Rectangle:
+#                        pos: self.pos
+#                        size: self.size
+
+
+
+#    AnchorLayout:
+#        pos: test2.pos
+#        Image:
+#            source: 'image/Hexagon.png'
+#            size: self.texture_size
+#            size_hint:0.5, .5
+
+#        Image:
+#            size_hint_y: 0
+#            adaptive_height: True
+#            adaptive_width: True
+#            source: 'image/Hexagon.png'
+#            size: self.texture_size
+#        Widget
+#            size_hint: 0, 0
+#        Image:
+#            size_hint_y: 0
+#            adaptive_width: True
+#            source: 'image/Hexagon.png'
+#            size: self.texture_size
+#
+##        Empty row 2
+#        Widget
+#            size_hint: 0, 0
+#        Widget
+#            size_hint: 0, 0
+#        Widget
+#            size_hint: 0, 0
+#        Widget
+#            size_hint: 0, 0
+#
+#        #Row 3
+#        Image:
+#            size_hint_y: 0
+#            source: 'image/Hexagon.png'
+#            size: self.texture_size
+#        Widget
+#            size_hint: 0, 0
+#        Image:
+#            size_hint_y: 0
+#            source: 'image/Hexagon.png'
+#            size: self.texture_size
+#        Widget
+#            size_hint: 0, 0
+
