@@ -29,72 +29,72 @@ class MainScreen(MDScreen):
 
         for num in range(0, 25):
             temp_layout = MDFloatLayout()
-
             self.ids.discovery_tiles.add_widget(temp_layout)
 
             if num < 5:
-                temp_layout.add_widget(
-                    Image(
+                temp_widget = Image(
                         pos=(self.x + (num * dp(150)), self.y),
                         size_hint=(None, None),
                         size=(dp(155), dp(180)),
                         source='image/Hexagon.png',
                     )
-                )
 
-                #TODO: Need to store every hex to pull it whenever
-
-                hex_id[num + 1] = {'position': (0, num)}
+                temp_layout.add_widget(temp_widget)
+                hex_id[num + 1] = {'position': (0, num), 'widget': temp_widget}
 
             elif num < 10:
-                temp_layout.add_widget(
-                    Image(
-                        pos=(self.x + ((9.5 - num) * dp(150)), self.y - (130 * 1)),
+                temp_widget = Image(
+                        pos=((num - 4.5) * dp(150), self.y - (130 * 1)),
+
+
                         size_hint=(None, None),
                         size=(dp(155), dp(180)),
                         source='image/Hexagon.png'
                     )
-                )
 
-                hex_id[num + 1] = {'position': (1, num - 5)}
+                temp_layout.add_widget(temp_widget)
+                hex_id[num + 1] = {'position': (1, num - 5), 'widget': temp_widget}
 
             elif num < 15:
-                temp_layout.add_widget(
-                    Image(
-                        pos=(self.x + ((14 - num) * dp(150)), self.y - (130 * 2)),
+                temp_widget = Image(
+                        pos=((num - 10) * dp(150), self.y - (130 * 2)),
                         size_hint=(None, None),
                         size=(dp(155), dp(180)),
                         source='image/Hexagon.png'
                     )
-                )
-
-                hex_id[num + 1] = {'position': (2, num - 10)}
+                temp_layout.add_widget(temp_widget)
+                hex_id[num + 1] = {'position': (2, num - 10), 'widget': temp_widget}
 
             elif num < 20:
-                temp_layout.add_widget(
-                    Image(
-                        pos=(self.x + ((19.5 - num) * dp(150)), self.y - (130 * 3)),
+                temp_widget = Image(
+                        pos=((num - 14.5) * dp(150), self.y - (130 * 3)),
                         size_hint=(None, None),
                         size=(dp(155), dp(180)),
                         source='image/Hexagon.png'
                     )
-                )
 
-                hex_id[num + 1] = {'position': (3, num - 15)}
+                temp_layout.add_widget(temp_widget)
+
+                hex_id[num + 1] = {'position': (3, num - 15), 'widget': temp_widget}
 
             else:
-                temp_layout.add_widget(
-                    Image(
-                        pos=(self.x + ((24 - num) * dp(150)), self.y - (130 * 4)),
+                temp_widget = Image(
+                        pos=((num - 20) * dp(150), self.y - (130 * 4)),
                         size_hint=(None, None),
                         size=(dp(155), dp(180)),
                         source='image/Hexagon.png'
                     )
-                )
 
-                hex_id[num + 1] = {'position': (4, num - 20)}
+                temp_layout.add_widget(temp_widget)
 
-        print(hex_id[20])
+                hex_id[num + 1] = {'position': (4, num - 20), 'widget': temp_widget}
+
+        # test = list(filter(lambda x: hex_id[x]['position'] == (4, 4), hex_id))
+        # print(test)
+        #
+        # for x in test:
+        #     hex_id[x]['widget'].color = 0, 0, 0, 1
+        #     print(hex_id[x]['position'])
 
 
 # kv = '''
