@@ -14,29 +14,26 @@ MainScreenManager:
 
         MDToolbar:
             id: screen_title
-            elevation: dp(15)
+            title: "Player"
+            left_action_items: [["menu", lambda x: root.open_close_rail()]]
+            elevation: dp(16)
 
         MDBoxLayout:
             MDNavigationRail:
+                id: rail
                 padding: '8dp', '0dp'
                 radius: ["0dp"]
-                text_title: 'test'
                 md_bg_color: app.theme_cls.primary_color
                 visible: 'Unlabeled'
                 use_hover_behavior: True
-                hover_bg: 0, 0, 0, .2
-
-#                MDNavigationRailItem:
-#                    icon: "human-handsdown"
-##                    text: "Inventory"
-
-#                MDNavigationRailItem:
+                hover_bg: app.theme_cls.primary_dark
 
                 MDNavigationRailItem:
                     icon: "map"
                     on_release:
                         window_screen_manager.current = 'discover'
                         screen_title.title = 'Discover'
+
                 MDNavigationRailItem:
                     icon: "grass"
                 MDNavigationRailItem:
@@ -50,10 +47,9 @@ MainScreenManager:
 
             WindowScreenManager:
                 id: window_screen_manager
-                MainWindowScreen:
-                    name: 'main'
+                PlayerScreen:
+                    name: 'player'
                 DiscoverScreen:
-
 
     MDToolbar:
     MDBoxLayout:
@@ -73,7 +69,8 @@ MainScreenManager:
                 md_bg_color: app.theme_cls.primary_dark
                 icon: 'human-handsdown'
                 on_release:
-                    window_screen_manager.current = 'main'
+                    window_screen_manager.current = 'player'
+                    screen_title.title = 'Player'
 
         MDIconButton:
             icon: 'help'

@@ -19,10 +19,10 @@ class DiscoverScreen(MDScreen):
 
             if num < 5:
                 temp_widget = Image(
-                    pos=(self.x + (num * dp(150)), self.y),
+                    pos=(self.x + (num * dp(152)), self.y),
                     size_hint=(None, None),
                     size=(dp(155), dp(180)),
-                    source='image/Hexagon.png',
+                    source='image/pixelhex.png',
                 )
 
                 temp_layout.add_widget(temp_widget)
@@ -30,11 +30,11 @@ class DiscoverScreen(MDScreen):
 
             elif num < 10:
                 temp_widget = Image(
-                    pos=((num - 4.5) * dp(150), self.y - (130 * 1)),
+                    pos=(dp(num - 4.5) * dp(152), self.y - dp(112 * 1)),
 
                     size_hint=(None, None),
                     size=(dp(155), dp(180)),
-                    source='image/Hexagon.png'
+                    source='image/pixelhex.png'
                 )
 
                 temp_layout.add_widget(temp_widget)
@@ -42,20 +42,20 @@ class DiscoverScreen(MDScreen):
 
             elif num < 15:
                 temp_widget = Image(
-                    pos=((num - 10) * dp(150), self.y - (130 * 2)),
+                    pos=(dp(num - 10) * dp(152), self.y - dp(112 * 2)),
                     size_hint=(None, None),
                     size=(dp(155), dp(180)),
-                    source='image/Hexagon.png'
+                    source='image/pixelhex.png'
                 )
                 temp_layout.add_widget(temp_widget)
                 hex_id[num + 1] = {'position': (2, num - 10), 'widget': temp_widget}
 
             elif num < 20:
                 temp_widget = Image(
-                    pos=((num - 14.5) * dp(150), self.y - (130 * 3)),
+                    pos=(dp(num - 14.5) * dp(152), self.y - dp(112 * 3)),
                     size_hint=(None, None),
                     size=(dp(155), dp(180)),
-                    source='image/Hexagon.png'
+                    source='image/pixelhex.png'
                 )
 
                 temp_layout.add_widget(temp_widget)
@@ -64,10 +64,10 @@ class DiscoverScreen(MDScreen):
 
             else:
                 temp_widget = Image(
-                    pos=((num - 20) * dp(150), self.y - (130 * 4)),
+                    pos=(dp(num - 20) * dp(152), self.y - dp(112 * 4)),
                     size_hint=(None, None),
                     size=(dp(155), dp(180)),
-                    source='image/Hexagon.png'
+                    source='image/pixelhex.png'
                 )
 
                 temp_layout.add_widget(temp_widget)
