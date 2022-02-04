@@ -3,11 +3,11 @@ from kivy.uix.screenmanager import ScreenManager
 from kivy.core.window import Window
 from kivymd.uix.screen import MDScreen
 from kivy.clock import Clock
-from kivy.uix.gridlayout import GridLayout
 from kivy.metrics import dp
 from kivymd.uix.floatlayout import MDFloatLayout
+from kivy.core.text import LabelBase
+from kivymd.font_definitions import theme_font_styles
 from kivy.uix.image import Image
-from kivy.uix.button import Button
 
 KIVY_DPI = 320
 KIVY_METRICS_DENSITY = 2
@@ -19,75 +19,153 @@ class DarkWildernessApp(MDApp):
         pass
 
 class MainScreen(MDScreen):
+    def __init__(self, **kwargs):
+        super(MDScreen, self).__init__(**kwargs)
 
-    def on_enter(self):
-        Clock.schedule_once(self.create_map)
+        # Future Use
+        MDApp.get_running_app().theme_cls.material_style = "M3"
 
-    def create_map(self, *args):
+        # Set colors to use throughout app
+        MDApp.get_running_app().theme_cls.set_colors("Green", "800", "600", "900", "Lime", "600", "100", "900")
 
-        hex_id = dict()
+        # Set Fonts
+        # LabelBase.register(name="H1", fn_regular="font/JetBrainsMono-Light.ttf")
+        # theme_font_styles.append('H1')
+        # MDApp.get_running_app().theme_cls.font_styles["H1"] = ["H1", 96, False, -1.5]
+        #
+        # LabelBase.register(name="H2", fn_regular="font/JetBrainsMono-Light.ttf")
+        # theme_font_styles.append('H2')
+        # MDApp.get_running_app().theme_cls.font_styles["H2"] = ["H2", 60, False, -0.5]
+        #
+        # LabelBase.register(name="H3", fn_regular="font/JetBrainsMono-Regular.ttf")
+        # theme_font_styles.append('H3')
+        # MDApp.get_running_app().theme_cls.font_styles["H3"] = ["H3", 48, False, 0]
+        #
+        # LabelBase.register(name="H4", fn_regular="font/JetBrainsMono-Regular.ttf")
+        # theme_font_styles.append('H4')
+        # MDApp.get_running_app().theme_cls.font_styles["H4"] = ["H4", 34, False, 0.25]
+        #
+        # LabelBase.register(name="H5", fn_regular="font/JetBrainsMono-Regular.ttf")
+        # theme_font_styles.append('H5')
+        # MDApp.get_running_app().theme_cls.font_styles["H5"] = ["H5", 24, False, 0]
+        #
+        # LabelBase.register(name="H6", fn_regular="font/JetBrainsMono-Medium.ttf")
+        # theme_font_styles.append('H6')
+        # MDApp.get_running_app().theme_cls.font_styles["H6"] = ["H6", 20, False, 0.15]
+        #
+        # LabelBase.register(name="Subtitle1", fn_regular="font/JetBrainsMono-Regular.ttf")
+        # theme_font_styles.append('Subtitle1')
+        # MDApp.get_running_app().theme_cls.font_styles["Subtitle1"] = ["Subtitle1", 16, False, 0.15]
+        #
+        # LabelBase.register(name="Subtitle2", fn_regular="font/JetBrainsMono-Medium.ttf")
+        # theme_font_styles.append('Subtitle2')
+        # MDApp.get_running_app().theme_cls.font_styles["Subtitle2"] = ["Subtitle2", 14, False, 0.1]
+        #
+        # LabelBase.register(name="Body1", fn_regular="font/JetBrainsMono-Regular.ttf")
+        # theme_font_styles.append('Body1')
+        # MDApp.get_running_app().theme_cls.font_styles["Body1"] = ["Body1", 16, False, 0.5]
+        #
+        # LabelBase.register(name="Body2", fn_regular="font/JetBrainsMono-Regular.ttf")
+        # theme_font_styles.append('Body2')
+        # MDApp.get_running_app().theme_cls.font_styles["Body2"] = ["Body2", 14, False, 0.25]
+        #
+        # LabelBase.register(name="Button", fn_regular="font/JetBrainsMono-Medium.ttf")
+        # theme_font_styles.append('Button')
+        # MDApp.get_running_app().theme_cls.font_styles["Button"] = ["Button", 14, True, 1.25]
+        #
+        # LabelBase.register(name="Caption", fn_regular="font/JetBrainsMono-Regular.ttf")
+        # theme_font_styles.append('Caption')
+        # MDApp.get_running_app().theme_cls.font_styles["Caption"] = ["Caption", 12, False, 0.4]
+        #
+        # LabelBase.register(name="Overline", fn_regular="font/JetBrainsMono-Regular.ttf")
+        # theme_font_styles.append('Overline')
+        # MDApp.get_running_app().theme_cls.font_styles["Overline"] = ["Overline", 10, True, 1.5]
 
-        for num in range(0, 25):
-            temp_layout = MDFloatLayout()
-            self.ids.discovery_tiles.add_widget(temp_layout)
 
-            if num < 5:
-                temp_widget = Image(
-                        pos=(self.x + (num * dp(150)), self.y),
-                        size_hint=(None, None),
-                        size=(dp(155), dp(180)),
-                        source='image/Hexagon.png',
-                    )
+    def on_pre_enter(self, *args):
+        MDApp.get_running_app().theme_cls.material_style = "M3"
 
-                temp_layout.add_widget(temp_widget)
-                hex_id[num + 1] = {'position': (0, num), 'widget': temp_widget}
+        # Set colors to use throughout app
+        MDApp.get_running_app().theme_cls.set_colors("Brown", "400", "200", "800", "Lime", "600", "100", "900")
 
-            elif num < 10:
-                temp_widget = Image(
-                        pos=((num - 4.5) * dp(150), self.y - (130 * 1)),
+    def prevent_break_timer(self):
+        Clock.schedule_once(self.disable_rail, 0.3)
+
+    def disable_rail(self, td):
+        self.ids.rail.disabled = False
+
+    # def on_enter(self):
+    #     Clock.schedule_once(self.create_map)
+
+    # def create_map(self, *args):
+    #
+    #     hex_id = dict()
+    #
+    #     for num in range(0, 25):
+    #         temp_layout = MDFloatLayout()
+    #         self.ids.discovery_tiles.add_widget(temp_layout)
+    #
+    #         if num < 5:
+    #             temp_widget = Image(
+    #                     pos=(self.x + (num * dp(150)), self.y),
+    #                     size_hint=(None, None),
+    #                     size=(dp(155), dp(180)),
+    #                     source='image/Hexagon.png',
+    #                 )
+    #
+    #             temp_layout.add_widget(temp_widget)
+    #             hex_id[num + 1] = {'position': (0, num), 'widget': temp_widget}
+    #
+    #         elif num < 10:
+    #             temp_widget = Image(
+    #                     pos=((num - 4.5) * dp(150), self.y - (130 * 1)),
+    #
+    #
+    #                     size_hint=(None, None),
+    #                     size=(dp(155), dp(180)),
+    #                     source='image/Hexagon.png'
+    #                 )
+    #
+    #             temp_layout.add_widget(temp_widget)
+    #             hex_id[num + 1] = {'position': (1, num - 5), 'widget': temp_widget}
+    #
+    #         elif num < 15:
+    #             temp_widget = Image(
+    #                     pos=((num - 10) * dp(150), self.y - (130 * 2)),
+    #                     size_hint=(None, None),
+    #                     size=(dp(155), dp(180)),
+    #                     source='image/Hexagon.png'
+    #                 )
+    #             temp_layout.add_widget(temp_widget)
+    #             hex_id[num + 1] = {'position': (2, num - 10), 'widget': temp_widget}
+    #
+    #         elif num < 20:
+    #             temp_widget = Image(
+    #                     pos=((num - 14.5) * dp(150), self.y - (130 * 3)),
+    #                     size_hint=(None, None),
+    #                     size=(dp(155), dp(180)),
+    #                     source='image/Hexagon.png'
+    #                 )
+    #
+    #             temp_layout.add_widget(temp_widget)
+    #
+    #             hex_id[num + 1] = {'position': (3, num - 15), 'widget': temp_widget}
+    #
+    #         else:
+    #             temp_widget = Image(
+    #                     pos=((num - 20) * dp(150), self.y - (130 * 4)),
+    #                     size_hint=(None, None),
+    #                     size=(dp(155), dp(180)),
+    #                     source='image/Hexagon.png'
+    #                 )
+    #
+    #             temp_layout.add_widget(temp_widget)
+    #
+    #             hex_id[num + 1] = {'position': (4, num - 20), 'widget': temp_widget}
 
 
-                        size_hint=(None, None),
-                        size=(dp(155), dp(180)),
-                        source='image/Hexagon.png'
-                    )
 
-                temp_layout.add_widget(temp_widget)
-                hex_id[num + 1] = {'position': (1, num - 5), 'widget': temp_widget}
-
-            elif num < 15:
-                temp_widget = Image(
-                        pos=((num - 10) * dp(150), self.y - (130 * 2)),
-                        size_hint=(None, None),
-                        size=(dp(155), dp(180)),
-                        source='image/Hexagon.png'
-                    )
-                temp_layout.add_widget(temp_widget)
-                hex_id[num + 1] = {'position': (2, num - 10), 'widget': temp_widget}
-
-            elif num < 20:
-                temp_widget = Image(
-                        pos=((num - 14.5) * dp(150), self.y - (130 * 3)),
-                        size_hint=(None, None),
-                        size=(dp(155), dp(180)),
-                        source='image/Hexagon.png'
-                    )
-
-                temp_layout.add_widget(temp_widget)
-
-                hex_id[num + 1] = {'position': (3, num - 15), 'widget': temp_widget}
-
-            else:
-                temp_widget = Image(
-                        pos=((num - 20) * dp(150), self.y - (130 * 4)),
-                        size_hint=(None, None),
-                        size=(dp(155), dp(180)),
-                        source='image/Hexagon.png'
-                    )
-
-                temp_layout.add_widget(temp_widget)
-
-                hex_id[num + 1] = {'position': (4, num - 20), 'widget': temp_widget}
+# -----
 
         # test = list(filter(lambda x: hex_id[x]['position'] == (4, 4), hex_id))
         # print(test)

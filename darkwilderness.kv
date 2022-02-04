@@ -1,20 +1,74 @@
 #:import C kivy.utils.get_color_from_hex
+#:import Clock kivy.clock
 
 WindowManager:
     MainScreen:
 
 <MainScreen>:
     name: "main"
+    md_bg_color: app.theme_cls.primary_light
+
+#    MDBoxLayout:
+#        orientation: 'vertical'
+#
+#        ScrollView:
+#            MDBoxLayout:
+#                id: discovery_tiles
+#                size_hint: None, None
+#                size: dp(831), dp(190)
 
     MDBoxLayout:
         orientation: 'vertical'
+        MDToolbar:
+            elevation: dp(15)
+            title: "Name of Page"
 
-        ScrollView:
-            MDBoxLayout:
-                id: discovery_tiles
-                size_hint: None, None
-                size: dp(831), dp(190)
+        MDBoxLayout:
+            MDNavigationRail:
+                elevation: dp(1)
+                text_title: "[b]Menu[/b]"
+                use_title: True
+                radius: ["0dp"]
+                id: rail
+                use_resizeable: True
+                md_bg_color: app.theme_cls.primary_color
+                visible: 'Unlabeled'
+                disabled_color: C('000000')
+                on_open:
+                    self.visible = 'Persistent'
+                    root.prevent_break_timer()
+                    self.disabled = True
 
+                on_close:
+                    self.visible = 'Unlabeled'
+                    root.prevent_break_timer()
+                    self.disabled = True
+
+                MDNavigationRailItem:
+                    size_hint_x: None
+                    icon: "human-handsdown"
+                    text: "Inventory"
+
+                MDNavigationRailItem:
+                    icon: "hiking"
+                    text: "Discover"
+
+                MDNavigationRailItem:
+                    icon: "pine-tree"
+                    text: "Gather"
+
+                MDNavigationRailItem:
+                    icon: "knife"
+                    text: "Craft"
+
+#            MDBoxLayout:
+#                orientation: 'vertical'
+#
+#                ScrollView:
+#                    MDBoxLayout:
+#                        id: discovery_tiles
+#                        size_hint: None, None
+#                        size: dp(831), dp(190)
 
 #        Honeycombed:
 #            cols: 5
