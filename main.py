@@ -2,17 +2,16 @@ from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager
 from kivy.core.window import Window
 from kivymd.uix.screen import MDScreen
-from kivy.clock import Clock
-from kivy.metrics import dp
-from kivymd.uix.floatlayout import MDFloatLayout
-from kivy.core.text import LabelBase
+from windowscreens.discoverscreen import DiscoverScreen
 from kivymd.font_definitions import theme_font_styles
-from kivy.uix.image import Image
 
 KIVY_DPI = 320
 KIVY_METRICS_DENSITY = 2
 
 Window.size = (720, 1280)
+
+class MainWindowScreen(MDScreen):
+    pass
 
 class DarkWildernessApp(MDApp):
     def build(self):
@@ -22,11 +21,11 @@ class MainScreen(MDScreen):
     def __init__(self, **kwargs):
         super(MDScreen, self).__init__(**kwargs)
 
-        # Future Use
+        # Set material style - Future Use
         MDApp.get_running_app().theme_cls.material_style = "M3"
 
         # Set colors to use throughout app
-        MDApp.get_running_app().theme_cls.set_colors("Green", "800", "600", "900", "Lime", "600", "100", "900")
+        MDApp.get_running_app().theme_cls.set_colors("Brown", "400", "200", "800", "Lime", "600", "100", "900")
 
         # Set Fonts
         # LabelBase.register(name="H1", fn_regular="font/JetBrainsMono-Light.ttf")
@@ -81,98 +80,6 @@ class MainScreen(MDScreen):
         # theme_font_styles.append('Overline')
         # MDApp.get_running_app().theme_cls.font_styles["Overline"] = ["Overline", 10, True, 1.5]
 
-
-    def on_pre_enter(self, *args):
-        MDApp.get_running_app().theme_cls.material_style = "M3"
-
-        # Set colors to use throughout app
-        MDApp.get_running_app().theme_cls.set_colors("Brown", "400", "200", "800", "Lime", "600", "100", "900")
-
-    def prevent_break_timer(self):
-        Clock.schedule_once(self.disable_rail, 0.3)
-
-    def disable_rail(self, td):
-        self.ids.rail.disabled = False
-
-    # def on_enter(self):
-    #     Clock.schedule_once(self.create_map)
-
-    # def create_map(self, *args):
-    #
-    #     hex_id = dict()
-    #
-    #     for num in range(0, 25):
-    #         temp_layout = MDFloatLayout()
-    #         self.ids.discovery_tiles.add_widget(temp_layout)
-    #
-    #         if num < 5:
-    #             temp_widget = Image(
-    #                     pos=(self.x + (num * dp(150)), self.y),
-    #                     size_hint=(None, None),
-    #                     size=(dp(155), dp(180)),
-    #                     source='image/Hexagon.png',
-    #                 )
-    #
-    #             temp_layout.add_widget(temp_widget)
-    #             hex_id[num + 1] = {'position': (0, num), 'widget': temp_widget}
-    #
-    #         elif num < 10:
-    #             temp_widget = Image(
-    #                     pos=((num - 4.5) * dp(150), self.y - (130 * 1)),
-    #
-    #
-    #                     size_hint=(None, None),
-    #                     size=(dp(155), dp(180)),
-    #                     source='image/Hexagon.png'
-    #                 )
-    #
-    #             temp_layout.add_widget(temp_widget)
-    #             hex_id[num + 1] = {'position': (1, num - 5), 'widget': temp_widget}
-    #
-    #         elif num < 15:
-    #             temp_widget = Image(
-    #                     pos=((num - 10) * dp(150), self.y - (130 * 2)),
-    #                     size_hint=(None, None),
-    #                     size=(dp(155), dp(180)),
-    #                     source='image/Hexagon.png'
-    #                 )
-    #             temp_layout.add_widget(temp_widget)
-    #             hex_id[num + 1] = {'position': (2, num - 10), 'widget': temp_widget}
-    #
-    #         elif num < 20:
-    #             temp_widget = Image(
-    #                     pos=((num - 14.5) * dp(150), self.y - (130 * 3)),
-    #                     size_hint=(None, None),
-    #                     size=(dp(155), dp(180)),
-    #                     source='image/Hexagon.png'
-    #                 )
-    #
-    #             temp_layout.add_widget(temp_widget)
-    #
-    #             hex_id[num + 1] = {'position': (3, num - 15), 'widget': temp_widget}
-    #
-    #         else:
-    #             temp_widget = Image(
-    #                     pos=((num - 20) * dp(150), self.y - (130 * 4)),
-    #                     size_hint=(None, None),
-    #                     size=(dp(155), dp(180)),
-    #                     source='image/Hexagon.png'
-    #                 )
-    #
-    #             temp_layout.add_widget(temp_widget)
-    #
-    #             hex_id[num + 1] = {'position': (4, num - 20), 'widget': temp_widget}
-
-
-
-# -----
-
-        # test = list(filter(lambda x: hex_id[x]['position'] == (4, 4), hex_id))
-        # print(test)
-        #
-        # for x in test:
-        #     hex_id[x]['widget'].color = 0, 0, 0, 1
-        #     print(hex_id[x]['position'])
 
 
 # kv = '''
@@ -237,7 +144,10 @@ class MainScreen(MDScreen):
 
 
 
-class WindowManager(ScreenManager):
+class MainScreenManager(ScreenManager):
+    pass
+
+class WindowScreenManager(ScreenManager):
     pass
 
 if __name__ == "__main__":

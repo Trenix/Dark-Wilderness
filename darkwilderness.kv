@@ -1,74 +1,84 @@
 #:import C kivy.utils.get_color_from_hex
 #:import Clock kivy.clock
+#:include gui/discoverscreen.kv
 
-WindowManager:
+MainScreenManager:
     MainScreen:
 
 <MainScreen>:
     name: "main"
     md_bg_color: app.theme_cls.primary_light
 
-#    MDBoxLayout:
-#        orientation: 'vertical'
-#
-#        ScrollView:
-#            MDBoxLayout:
-#                id: discovery_tiles
-#                size_hint: None, None
-#                size: dp(831), dp(190)
-
     MDBoxLayout:
         orientation: 'vertical'
+
         MDToolbar:
+            id: screen_title
             elevation: dp(15)
-            title: "Name of Page"
 
         MDBoxLayout:
             MDNavigationRail:
-                elevation: dp(1)
-                text_title: "[b]Menu[/b]"
-                use_title: True
+                padding: '8dp', '0dp'
                 radius: ["0dp"]
-                id: rail
-                use_resizeable: True
+                text_title: 'test'
                 md_bg_color: app.theme_cls.primary_color
                 visible: 'Unlabeled'
-                disabled_color: C('000000')
-                on_open:
-                    self.visible = 'Persistent'
-                    root.prevent_break_timer()
-                    self.disabled = True
+                use_hover_behavior: True
+                hover_bg: 0, 0, 0, .2
 
-                on_close:
-                    self.visible = 'Unlabeled'
-                    root.prevent_break_timer()
-                    self.disabled = True
+#                MDNavigationRailItem:
+#                    icon: "human-handsdown"
+##                    text: "Inventory"
+
+#                MDNavigationRailItem:
 
                 MDNavigationRailItem:
-                    size_hint_x: None
-                    icon: "human-handsdown"
-                    text: "Inventory"
-
+                    icon: "map"
+                    on_release:
+                        window_screen_manager.current = 'discover'
+                        screen_title.title = 'Discover'
                 MDNavigationRailItem:
-                    icon: "hiking"
-                    text: "Discover"
-
+                    icon: "grass"
                 MDNavigationRailItem:
-                    icon: "pine-tree"
-                    text: "Gather"
-
+                    icon: "tools"
                 MDNavigationRailItem:
-                    icon: "knife"
-                    text: "Craft"
+                    icon: "hammer"
+                MDNavigationRailItem:
+                    icon: "campfire"
+                MDNavigationRailItem:
+                    icon: "bow-arrow"
 
-#            MDBoxLayout:
-#                orientation: 'vertical'
-#
-#                ScrollView:
-#                    MDBoxLayout:
-#                        id: discovery_tiles
-#                        size_hint: None, None
-#                        size: dp(831), dp(190)
+            WindowScreenManager:
+                id: window_screen_manager
+                MainWindowScreen:
+                    name: 'main'
+                DiscoverScreen:
+
+
+    MDToolbar:
+    MDBoxLayout:
+        padding: dp(8)
+        spacing: dp(28)
+
+        Widget:
+
+        MDIconButton:
+            icon: 'bag-personal'
+
+        MDFloatLayout:
+            MDIconButton:
+                pos_hint: {'center_x': 0.5}
+                pos: self.width, self.height - dp(24)
+                icon_size: "36sp"
+                md_bg_color: app.theme_cls.primary_dark
+                icon: 'human-handsdown'
+                on_release:
+                    window_screen_manager.current = 'main'
+
+        MDIconButton:
+            icon: 'help'
+
+        Widget:
 
 #        Honeycombed:
 #            cols: 5
