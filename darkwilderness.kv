@@ -16,34 +16,66 @@ MainScreenManager:
             id: screen_title
             title: "Player"
             left_action_items: [["menu", lambda x: root.open_close_rail()]]
-            elevation: dp(16)
+            right_action_items: [["information-outline", lambda x: x]]
 
         MDBoxLayout:
-            MDNavigationRail:
+            orientation: 'horizontal'
+            MDBoxLayout:
                 id: rail
-                padding: '8dp', '0dp'
-                radius: ["0dp"]
+                orientation: 'vertical'
+                padding: '8dp'
+                size_hint_x: None
+                width: '72dp'
+                opacity: 1
                 md_bg_color: app.theme_cls.primary_color
-                visible: 'Unlabeled'
-                use_hover_behavior: True
-                hover_bg: app.theme_cls.primary_dark
 
-                MDNavigationRailItem:
-                    icon: "map"
+                RailIconButton:
+                    group: 'x'
+                    pos_hint: {'center_x': 0.5}
                     on_release:
                         window_screen_manager.current = 'discover'
                         screen_title.title = 'Discover'
 
-                MDNavigationRailItem:
-                    icon: "grass"
-                MDNavigationRailItem:
-                    icon: "tools"
-                MDNavigationRailItem:
-                    icon: "hammer"
-                MDNavigationRailItem:
-                    icon: "campfire"
-                MDNavigationRailItem:
-                    icon: "bow-arrow"
+                    Image:
+                        source: "image/Discover.png"
+                        size_hint: None, None
+                        size: '48dp', '48dp'
+
+                RailIconButton:
+                    group: 'x'
+                    pos_hint: {'center_x': 0.5}
+                    icon: "image/Discover.png"
+
+
+                Widget:
+#            MDNavigationRail:
+#                id: rail
+#                padding: '8dp', '0dp'
+#                radius: ["0dp"]
+#                md_bg_color: app.theme_cls.primary_color
+#                visible: 'Unlabeled'
+#                use_hover_behavior: True
+#                hover_bg: app.theme_cls.primary_dark
+#
+#                MDNavigationRailItem:
+#                    icon: "image/Discover.png"
+#                    on_release:
+#                        window_screen_manager.current = 'discover'
+#                        screen_title.title = 'Discover'
+#
+#
+#                MDNavigationRailItem:
+#                    icon: "basket"
+#                MDNavigationRailItem:
+#                    icon: "spear"
+#                MDNavigationRailItem:
+#                    icon: "hammer"
+#                MDNavigationRailItem:
+#                    icon: "pot-steam"
+#                MDNavigationRailItem:
+#                    icon: "rabbit"
+#                MDNavigationRailItem:
+#                    icon: "fish"
 
             WindowScreenManager:
                 id: window_screen_manager
@@ -54,7 +86,7 @@ MainScreenManager:
     MDToolbar:
     MDBoxLayout:
         padding: dp(8)
-        spacing: dp(28)
+        spacing: dp(32)
 
         Widget:
 
@@ -73,7 +105,7 @@ MainScreenManager:
                     screen_title.title = 'Player'
 
         MDIconButton:
-            icon: 'help'
+            icon: 'image/Discover.png'
 
         Widget:
 

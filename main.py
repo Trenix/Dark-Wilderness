@@ -6,6 +6,11 @@ from kivy.animation import Animation
 from windowscreens.discoverscreen import DiscoverScreen
 from kivymd.font_definitions import theme_font_styles
 from kivy.core.text import LabelBase
+from kivymd.uix.behaviors.toggle_behavior import MDToggleButton
+from kivymd.uix.button import MDFillRoundFlatIconButton
+from kivy.clock import Clock
+from kivymd.uix.button import MDRoundFlatButton
+# from kivy.storage.dictstore import DictStore
 
 KIVY_DPI = 320
 KIVY_METRICS_DENSITY = 2
@@ -20,6 +25,16 @@ class DarkWildernessApp(MDApp):
         pass
 
 class MainScreen(MDScreen):
+
+    # save and load data
+    # def on_enter(self):
+    #
+    #     # test = input('What data you want to store?')
+    #     store = DictStore('nameofstorage')
+    #     # store.put(test)
+    #     for item in store:
+    #      print(item)
+
     def __init__(self, **kwargs):
         super(MDScreen, self).__init__(**kwargs)
 
@@ -84,10 +99,29 @@ class MainScreen(MDScreen):
         MDApp.get_running_app().theme_cls.font_styles["Overline"] = ["Overline", 10, True, 1.5]
 
     def open_close_rail(self):
+
+        def RevealButtons(dt):
+            for item in self.ids.rail.children:
+                item.opacity = 1
+
         if self.ids.rail.width == -1:
-            Animation(width=72, duration=0.2).start(self.ids.rail)
+            self.ids.rail.disabled = False
+            Animation(width=72, duration=0.3).start(self.ids.rail)
+            Clock.schedule_once(RevealButtons, 0.3)
+
         else:
-            Animation(width=-1, duration=0.2).start(self.ids.rail)
+            self.ids.rail.disabled = True
+            Animation(width=-1, duration=0.3).start(self.ids.rail)
+            for item in self.ids.rail.children:
+                item.opacity = 0
+
+
+
+# class RailIconButton(MDRoundFlatButton, MDToggleButton):
+#     pass
+
+class RailIconButton(MDFillRoundFlatIconButton, MDToggleButton):
+    pass
 
 # kv = '''
 # Honeycombed:
