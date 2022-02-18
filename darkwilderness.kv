@@ -23,28 +23,26 @@ MainScreenManager:
             MDBoxLayout:
                 id: rail
                 orientation: 'vertical'
-                padding: '8dp'
+                spacing: '8dp'
                 size_hint_x: None
                 width: '72dp'
                 opacity: 1
                 md_bg_color: app.theme_cls.primary_color
 
-                RailIconButton:
+                CustomIconButton:
                     group: 'x'
                     pos_hint: {'center_x': 0.5}
                     on_release:
                         window_screen_manager.current = 'discover'
                         screen_title.title = 'Discover'
 
-                    Image:
-                        source: "image/Discover.png"
-                        size_hint: None, None
-                        size: '48dp', '48dp'
+                    icon: 'images/icons/Discover.png'
 
-                RailIconButton:
-                    group: 'x'
-                    pos_hint: {'center_x': 0.5}
-                    icon: "image/Discover.png"
+#                CustomIconButton:
+#                    group: 'x'
+#                    pos_hint: {'center_x': 0.5}
+#                    icon: "image/BlackDiscover-01.png"
+
 
 
                 Widget:
@@ -92,6 +90,9 @@ MainScreenManager:
 
         MDIconButton:
             icon: 'bag-personal'
+            on_release:
+                root.toggle_clear()
+
 
         MDFloatLayout:
             MDIconButton:
@@ -105,7 +106,7 @@ MainScreenManager:
                     screen_title.title = 'Player'
 
         MDIconButton:
-            icon: 'image/Discover.png'
+            icon: 'campfire'
 
         Widget:
 

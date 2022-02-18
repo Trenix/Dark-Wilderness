@@ -6,10 +6,10 @@ from kivy.animation import Animation
 from windowscreens.discoverscreen import DiscoverScreen
 from kivymd.font_definitions import theme_font_styles
 from kivy.core.text import LabelBase
-from kivymd.uix.behaviors.toggle_behavior import MDToggleButton
-from kivymd.uix.button import MDFillRoundFlatIconButton
 from kivy.clock import Clock
-from kivymd.uix.button import MDRoundFlatButton
+from kivy.metrics import dp
+from kivy.uix.behaviors.togglebutton import ToggleButtonBehavior
+from kivymd.uix.button import MDIconButton
 # from kivy.storage.dictstore import DictStore
 
 KIVY_DPI = 320
@@ -100,28 +100,35 @@ class MainScreen(MDScreen):
 
     def open_close_rail(self):
 
-        def RevealButtons(dt):
+        def reveal_buttons(dt):
             for item in self.ids.rail.children:
-                item.opacity = 1
+                Animation(opacity=1, duration=0.1).start(item)
+
+        def disable_buttons(dt):
+            self.ids.rail.disabled = True
 
         if self.ids.rail.width == -1:
             self.ids.rail.disabled = False
-            Animation(width=72, duration=0.3).start(self.ids.rail)
-            Clock.schedule_once(RevealButtons, 0.3)
+            Animation(width=dp(72), duration=0.3).start(self.ids.rail)
+            Clock.schedule_once(reveal_buttons, 0.2)
 
         else:
-            self.ids.rail.disabled = True
             Animation(width=-1, duration=0.3).start(self.ids.rail)
             for item in self.ids.rail.children:
-                item.opacity = 0
+                Animation(opacity=0, duration=0.1).start(item)
+                Clock.schedule_once(disable_buttons, 0.1)
 
+    def toggle_clear(self):
+        for item in self.ids.rail.children:
+            item.state = 'normal'
 
+class CustomIconButton(MDIconButton, ToggleButtonBehavior):
 
-# class RailIconButton(MDRoundFlatButton, MDToggleButton):
-#     pass
-
-class RailIconButton(MDFillRoundFlatIconButton, MDToggleButton):
-    pass
+    def on_state(self, widget, value):
+        if value == 'down':
+            self.md_bg_color = MDApp.get_running_app().theme_cls.primary_dark
+        else:
+            self.md_bg_color = MDApp.get_running_app().theme_cls.primary_color
 
 # kv = '''
 # Honeycombed:
