@@ -4,9 +4,6 @@ from kivy.uix.image import Image
 from kivy.metrics import dp
 from kivy.clock import Clock
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.graphics import Rectangle
-from kivy.uix.button import Button
-from kivymd.app import MDApp
 import random
 
 class ImageButton(ButtonBehavior, Image):
@@ -23,9 +20,11 @@ class DiscoverScreen(MDScreen):
 
 
     def create_map(self, *args):
+        from systems.generatetiles import tile_generation
 
         tiles = ['EmptyTile.png', 'Forest.png', 'Grassland.png', 'Hills.png', 'Lake.png',
                  'Marsh.png', 'Mountain.png', 'River.png', 'Swamp.png']
+
 
 
         hex_id = dict()
@@ -44,7 +43,7 @@ class DiscoverScreen(MDScreen):
                 )
 
                 temp_layout.add_widget(temp_widget)
-                hex_id[num + 1] = {'position': (0, num), 'widget': temp_widget}
+                hex_id[num + 1] = {'position': (num, 4), 'widget': temp_widget}
 
             elif num < 10:
                 temp_widget = ImageButton(
@@ -56,7 +55,7 @@ class DiscoverScreen(MDScreen):
                 )
 
                 temp_layout.add_widget(temp_widget)
-                hex_id[num + 1] = {'position': (1, num - 5), 'widget': temp_widget}
+                hex_id[num + 1] = {'position': (num - 5, 3), 'widget': temp_widget}
 
             elif num < 15:
                 temp_widget = ImageButton(
@@ -66,7 +65,7 @@ class DiscoverScreen(MDScreen):
                     source=f'images/tiles/{tiles[random.randrange(1,9)]}',
                 )
                 temp_layout.add_widget(temp_widget)
-                hex_id[num + 1] = {'position': (2, num - 10), 'widget': temp_widget}
+                hex_id[num + 1] = {'position': (num - 10, 2), 'widget': temp_widget}
 
             elif num < 20:
                 temp_widget = ImageButton(
@@ -77,8 +76,7 @@ class DiscoverScreen(MDScreen):
                 )
 
                 temp_layout.add_widget(temp_widget)
-
-                hex_id[num + 1] = {'position': (3, num - 15), 'widget': temp_widget}
+                hex_id[num + 1] = {'position': (num - 15, 1), 'widget': temp_widget}
 
             else:
                 temp_widget = ImageButton(
@@ -89,12 +87,40 @@ class DiscoverScreen(MDScreen):
                 )
 
                 temp_layout.add_widget(temp_widget)
+                hex_id[num + 1] = {'position': (num - 20, 0), 'widget': temp_widget}
 
-                hex_id[num + 1] = {'position': (4, num - 20), 'widget': temp_widget}
+        river_positions = tile_generation()
+
+        test = []
+
+        for num in range(0, len(river_positions)):
+           test += list(filter(lambda x: hex_id[x]['position'] == river_positions[num], hex_id))
+
+        print(test)
+
+        for x in test:
+            hex_id[x]['widget'].color = 0, 0, 0, 1
+            print(hex_id[x]['position'])
+
+        # river_tiles = list(filter(lambda x, y: hex_id[x]['position'] == river_positions[y], hex_id))
+        #
+        # print(river_tiles)
+        # print(river_positions)
+
+
+        #
+        # list(filter(lambda x, y: hex_id+river_tiles, hex_id, river_tiles))
+
+        # test = list(filter(lambda x: hex_id[x]['position'] == (1, 0), hex_id))
+        # # print(test)
+        # #
+        # for x in test:
+        #     hex_id[x]['widget'].color = 0, 0, 0, 1
+        #     print(hex_id[x]['position'])
+
 
     def test(self, button):
-        print('works')
-        print('images/tiles/*.png')
+        pass
 
     def test2(self, button):
         print('works2')
