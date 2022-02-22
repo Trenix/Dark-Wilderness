@@ -31,8 +31,6 @@ def tile_generation():
         elif river_start == 'bottom':
             river_location_y += 1
 
-    print(templist)
-
     return templist
 
 # river goes left or right on it's way up or down. just change x left or right
