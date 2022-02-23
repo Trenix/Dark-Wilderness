@@ -12,10 +12,10 @@ def tile_generation():
         river_location_y = 4
         river_start = 'top'
 
-    templist = []
+    river_list = []
 
     while river_location_y != -1 and river_location_y != 5 and river_location_x != -1 and river_location_x != 5:
-        templist.append((river_location_x, river_location_y))
+        river_list.append((river_location_x, river_location_y))
 
         # Even
         if river_location_y % 2 == 0:
@@ -31,6 +31,12 @@ def tile_generation():
         elif river_start == 'bottom':
             river_location_y += 1
 
-    return templist
+    # Remaining tile generation
+    tiles = ['grassland.png', 'hills.png', 'forest.png', 'marsh.png', 'swamp.png', 'mountain.png', 'lake.png']
 
-# river goes left or right on it's way up or down. just change x left or right
+    tile_list = random.choices(tiles, weights=(20, 20, 20, 20, 10, 10, 5), k=(25-len(river_list)))
+
+    print(tile_list)
+
+
+    return river_list, tile_list

@@ -19,13 +19,9 @@ class DiscoverScreen(MDScreen):
         super(DiscoverScreen, self).__init__(**kwargs)
         Clock.schedule_once(self.create_map, 0.1)
 
-
     def create_map(self, *args):
         from systems.generatetiles import tile_generation
         global hex_id
-
-        tiles = ['EmptyTile.png', 'Forest.png', 'Grassland.png', 'Hills.png', 'Lake.png',
-                 'Marsh.png', 'Mountain.png', 'Swamp.png']
 
         hex_id = dict()
 
@@ -35,7 +31,7 @@ class DiscoverScreen(MDScreen):
 
             if num < 5:
                 temp_widget = ImageButton(
-                    source='images/tiles/EmptyTile.png',
+                    source='images/tiles/emptytile.png',
                     size_hint=(None, None),
                     size=(dp(200), dp(200)),
                     pos=(num * (dp(200) * 0.98), self.y),
@@ -52,7 +48,7 @@ class DiscoverScreen(MDScreen):
                     pos=((num - 4.5) * (dp(200) * 0.98), dp(200) * (-0.74 * 1)),
                     size_hint=(None, None),
                     size=(dp(200), dp(200)),
-                    source='images/tiles/EmptyTile.png',
+                    source='images/tiles/emptytile.png',
                     disabled=True,
                     opacity=0.1,
                     on_release=partial(self.reveal_tile, num + 1),
@@ -68,7 +64,7 @@ class DiscoverScreen(MDScreen):
                     size=(dp(200), dp(200)),
                     opacity=0.1,
                     disabled=True,
-                    source='images/tiles/EmptyTile.png',
+                    source='images/tiles/emptytile.png',
                     on_release=self.reveal_tile,
                 )
                 temp_layout.add_widget(temp_widget)
@@ -81,7 +77,7 @@ class DiscoverScreen(MDScreen):
                     size=(dp(200), dp(200)),
                     opacity=0.1,
                     disabled=True,
-                    source='images/tiles/EmptyTile.png',
+                    source='images/tiles/emptytile.png',
                     on_release=self.reveal_tile,
                 )
 
@@ -95,14 +91,14 @@ class DiscoverScreen(MDScreen):
                     size=(dp(200), dp(200)),
                     opacity=0.1,
                     disabled=True,
-                    source='images/tiles/EmptyTile.png',
+                    source='images/tiles/emptytile.png',
                     on_release=self.reveal_tile,
                 )
 
                 temp_layout.add_widget(temp_widget)
                 hex_id[num + 1] = {'position': (num - 20, 0), 'widget': temp_widget, 'tile': None, 'discovered': False}
 
-        # Tile Action Generation
+        # Startup Tile Generation
         hex_id[1]['widget'].opacity = 1
         hex_id[1]['discovered'] = True
         hex_id[2]['widget'].opacity = 0.5
@@ -110,24 +106,21 @@ class DiscoverScreen(MDScreen):
         hex_id[2]['widget'].disabled = False
         hex_id[6]['widget'].disabled = False
 
+        river_position, remaining_tiles = tile_generation()
 
-        river_positions = tile_generation()
+        # Filter out hexs that will contain rivers and set information.
+        for item in filter(lambda x: x if hex_id[x]['position'] in river_position else None, hex_id):
+            hex_id[item]['tile'] = "river"
+            # hex_id[item]['widget'].source = 'images/tiles/river.png'
 
-        templist = []
+        # Filter out hexes with empty tiles and set them information.
+        none_tile_list = list(filter(lambda x: hex_id[x]['tile'] == None, hex_id))
 
-        for num in range(0, len(river_positions)):
-           templist += list(filter(lambda x: hex_id[x]['position'] == river_positions[num], hex_id))
-
-        for x in templist:
-            hex_id[x]['tile'] = "river"
-
-        # for x in templist:
-        #     hex_id[x]['widget'].source = 'images/tiles/River.png'
-
-
+        for num in range(0, len(remaining_tiles)):
+            hex_id[none_tile_list[num]]['tile'] = remaining_tiles[num]
+            # hex_id[none_tile_list[num]]['widget'].source = f'images/tiles/{remaining_tiles[num]}'
 
 
-        #
         # list(filter(lambda x, y: hex_id+river_tiles, hex_id, river_tiles))
 
         # test = list(filter(lambda x: hex_id[x]['position'] == (1, 0), hex_id))
