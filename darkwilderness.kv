@@ -19,33 +19,81 @@ MainScreenManager:
             right_action_items: [["information-outline", lambda x: x]]
 
         MDBoxLayout:
+            size_hint_y: None
+            height: dp(32)
+            md_bg_color: app.theme_cls.primary_dark
+            MDLabel:
+                text: f"[font=Wildicon]{root.cust_icons['map']}[/font]"
+                halign: 'center'
+                theme_text_color: "Custom"
+                text_color: C('#FFFFFF')
+                font_size: '16dp'
+                markup: True
+
+#            MDLabel:
+#                text: f"[font=Icons]'\U000F1098'[/font]"
+#                halign: 'center'
+#                markup: True
+
+
+        MDBoxLayout:
             orientation: 'horizontal'
+
             MDBoxLayout:
                 id: rail
                 orientation: 'vertical'
-                spacing: '8dp'
+                padding: '24dp'
+                spacing: '24dp'
                 size_hint_x: None
                 width: '72dp'
                 opacity: 1
                 md_bg_color: app.theme_cls.primary_color
 
-                CustomIconButton:
-                    group: 'x'
+                BadgeButton:
+                    id: discover_button
+                    font_name: 'Wildicon'
                     pos_hint: {'center_x': 0.5}
+                    text: f"{root.cust_icons['map']}"
+                    theme_text_color: "Custom"
+                    text_color: C('#FFFFFF')
+                    notifications: 0
+                    font_size: '30sp'
+                    markup: True
+
                     on_release:
                         window_screen_manager.current = 'discover'
                         screen_title.title = 'Discover'
 
-                    icon: 'images/icons/Discover.png'
+                BadgeButton:
+                    id: gather_button
+                    font_name: 'Wildicon'
+                    text: f"{root.cust_icons['basket']}"
+                    pos_hint: {'center_x': 0.5}
+                    theme_text_color: "Custom"
+                    text_color: C('#FFFFFF')
+                    font_size: '30sp'
+                    notifications: 0
+                    markup: True
 
+#
 #                CustomIconButton:
 #                    group: 'x'
 #                    pos_hint: {'center_x': 0.5}
-#                    icon: "image/BlackDiscover-01.png"
-
+#                    text_color: C('FFFFFF')
+#                    color: C('FFFFFF')
+#                    icon: 'images/icons/Discover.png'
+#                    on_release:
+#                        window_screen_manager.current = 'discover'
+#                        screen_title.title = 'Discover'
+#
+#                CustomIconButton:
+#                    group: 'x'
+#                    pos_hint: {'center_x': 0.5}
+#                    icon: "basket"
 
 
                 Widget:
+
 #            MDNavigationRail:
 #                id: rail
 #                padding: '8dp', '0dp'

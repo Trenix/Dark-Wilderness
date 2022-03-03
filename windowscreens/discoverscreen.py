@@ -1,47 +1,8 @@
 from kivymd.uix.screen import MDScreen
 from kivymd.uix.floatlayout import MDFloatLayout
-from kivy.uix.image import Image
 from kivy.metrics import dp
 from kivy.clock import Clock
-from kivy.uix.behaviors import ButtonBehavior
 from functools import partial
-from kivy.animation import Animation
-from kivy.properties import ListProperty
-from kivy.properties import StringProperty
-
-class ImageButton(ButtonBehavior, Image):
-
-    hex_status = StringProperty('undiscovered', Options=('undiscovered', 'discovered', 'discoverable'))
-    hex_position = ListProperty(None)
-    hex_tile = StringProperty(None)
-
-    def __init__(self, **kwargs):
-        super(ImageButton, self).__init__(**kwargs)
-        self.source = 'images/tiles/emptytile.png'
-        self.size_hint = (None, None)
-        self.size = (dp(200), dp(200))
-        self.opacity = 0.1
-
-    def on_hex_status(self, obj, value):
-
-        if self.hex_status == "discovered":
-
-            self.opacity = 1
-            self.source = f"images/tiles/{self.hex_tile}.png"
-
-            if self.hex_position != [0, 4]:
-                anim_sequence = Animation(size=(dp(250), dp(250)), duration=0.3) +\
-                                Animation(size=(dp(200), dp(200)), duration=0.3)
-                anim_sequence.start(self)
-
-        if self.hex_status == "discoverable":
-            self.opacity = 0.5
-            self.disabled = False
-
-    def collide_point(self, x, y):
-        # return (self.x + dp(30)) <= x <= (self.right - dp(30)) and (
-        #         self.y + dp(30)) <= y <= (self.top - dp(30))
-        return (x - self.center_x)**2 + (y - self.center_y)**2 < (self.width/2.2)**2
 
 class DiscoverScreen(MDScreen):
 
@@ -52,6 +13,7 @@ class DiscoverScreen(MDScreen):
         Clock.schedule_once(self.create_map, 0.1)
 
     def create_map(self, *args):
+        from main import ImageButton
         from systems.generatetiles import tile_generation
 
         for num in range(0, 25):
@@ -121,7 +83,6 @@ class DiscoverScreen(MDScreen):
         # Startup Tile Generation
         self.hex_id[13].hex_status = 'discovered'
 
-        tup = [0, 1]
 
 
 

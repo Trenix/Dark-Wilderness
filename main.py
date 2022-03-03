@@ -2,7 +2,6 @@ from kivymd.app import MDApp
 from kivy.uix.screenmanager import ScreenManager
 from kivy.core.window import Window
 from kivymd.uix.screen import MDScreen
-from kivy.animation import Animation
 from windowscreens.discoverscreen import DiscoverScreen
 from kivymd.font_definitions import theme_font_styles
 from kivy.core.text import LabelBase
@@ -11,6 +10,70 @@ from kivy.metrics import dp
 from kivy.uix.behaviors.togglebutton import ToggleButtonBehavior
 from kivymd.uix.button import MDIconButton
 # from kivy.storage.dictstore import DictStore
+from kivymd.uix.button import MDTextButton
+from kivymd.uix.label import MDIcon
+from kivy.animation import Animation
+from kivy.properties import ListProperty
+from kivy.properties import StringProperty
+from kivy.properties import NumericProperty
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.image import Image
+
+class ImageButton(ButtonBehavior, Image):
+
+    hex_status = StringProperty('undiscovered', Options=('undiscovered', 'discovered', 'discoverable'))
+    hex_position = ListProperty(None)
+    hex_tile = StringProperty(None)
+
+    def __init__(self, **kwargs):
+        super(ImageButton, self).__init__(**kwargs)
+        self.source = 'images/tiles/emptytile.png'
+        self.size_hint = (None, None)
+        self.size = (dp(200), dp(200))
+        self.color = 0, 0, 0, 0.7
+
+    def on_hex_status(self, obj, value):
+
+        if self.hex_status == "discovered":
+
+            self.color = 1, 1, 1, 1
+            self.source = f"images/tiles/{self.hex_tile}.png"
+
+            if self.hex_position != [2, 2]:
+                anim_sequence = Animation(size=(dp(250), dp(250)), duration=0.3) +\
+                                Animation(size=(dp(200), dp(200)), duration=0.3)
+                anim_sequence.start(self)
+                MDApp.get_running_app().root.get_screen('main').ids.gather_button.notifications += 1
+                MDApp.get_running_app().root.get_screen('main').ids.discover_button.notifications -= 1
+
+
+        if self.hex_status == "discoverable":
+
+            self.color = 0, 0, 0, 0.5
+            self.disabled = False
+            MDApp.get_running_app().root.get_screen('main').ids.discover_button.notifications += 1
+
+    def collide_point(self, x, y):
+        # return (self.x + dp(30)) <= x <= (self.right - dp(30)) and (
+        #         self.y + dp(30)) <= y <= (self.top - dp(30))
+        return (x - self.center_x)**2 + (y - self.center_y)**2 < (self.width/2.2)**2
+
+class BadgeButton(MDTextButton, MDIcon):
+    notifications = NumericProperty(0)
+
+    def on_notifications(self, *args):
+        if self.notifications != 0:
+            if self.notifications < 10:
+                self.badge_icon = f'numeric-{self.notifications}'
+            else:
+                self.badge_icon = 'numeric-9-plus'
+        else:
+            self.badge_icon = ''
+
+    # def on_release(self):
+    #     self.notifications = 0
+    #     self.badge_icon = ''
+
 
 KIVY_DPI = 320
 KIVY_METRICS_DENSITY = 2
@@ -25,6 +88,10 @@ class DarkWildernessApp(MDApp):
         pass
 
 class MainScreen(MDScreen):
+
+    cust_icons = {
+        "map": "\U0000E900",
+        "basket": "\U0000E901"}
 
     # save and load data
     # def on_enter(self):
@@ -97,6 +164,10 @@ class MainScreen(MDScreen):
         LabelBase.register(name="Overline", fn_regular="font/dogicabold.ttf")
         theme_font_styles.append('Overline')
         MDApp.get_running_app().theme_cls.font_styles["Overline"] = ["Overline", 10, True, 1.5]
+
+        LabelBase.register(name="Wildicon", fn_regular="font/wildicon.ttf")
+        theme_font_styles.append('Wildicon')
+        MDApp.get_running_app().theme_cls.font_styles["Wildicon"] = ["Wildicon", 10, False, 20]
 
     def open_close_rail(self):
 
